@@ -6,6 +6,8 @@ import java.util.List;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -34,6 +36,13 @@ public class TabMainActivity extends FragmentActivity implements
 	private List<Fragment> mFragments;
 	private RadioButton[] mRadioButtons = new RadioButton[3];
 
+	private Fragment mHomeFragment;
+	private Fragment mDiscoveryFragment;
+	private Fragment mOwnerFragment;
+
+	private FragmentManager mFragmentManager;
+	private FragmentAdapter mFragmentAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,19 +61,12 @@ public class TabMainActivity extends FragmentActivity implements
 	}
 
 	private void initData() {
-		mFragments = new ArrayList<Fragment>();
-		mFragments.add(new HomeFragment());
-		mFragments.add(new DiscoveryFragment());
-		mFragments.add(new OwnerFragment());
-		mViewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
-				mFragments));
 		initRadios();
-		setCurrentTab(0);
-
+		initContent();
 	}
 
 	private void initRadios() {
-		for(int i = 0; i < mTabRadioGroup.getChildCount(); i++){
+		for (int i = 0; i < mTabRadioGroup.getChildCount(); i++) {
 			mRadioButtons[i] = (RadioButton) mTabRadioGroup.getChildAt(i);
 		}
 	}
@@ -77,29 +79,71 @@ public class TabMainActivity extends FragmentActivity implements
 		mTabRadioGroup = (RadioGroup) findViewById(R.id.tab_radiogroup);
 	}
 
-//	@Override
-//	public void onClick(View v) {
-//		switch (v.getId()) {
-//		case R.id.tab_home:
-//			mSelcetedTabIndex = 0;
-//			break;
-//		case R.id.tab_discovery:
-//			mSelcetedTabIndex = 1;
-//			break;
-//		case R.id.tab_owner:
-//			mSelcetedTabIndex = 2;
-//			break;
-//		}
-//
-//		if (mSelcetedTabIndex != mCurrentTabIndex) {
-//			mCurrentTabIndex = mSelcetedTabIndex;
-//			setCurrentTab(mCurrentTabIndex);
-//		}
-//	}
+	private void initContent() {
+		mFragmentManager = getSupportFragmentManager();
+		mFragments = new ArrayList<Fragment>();
+		mFragmentAdapter = new FragmentAdapter(mFragmentManager, mFragments);
+		mViewPager.setAdapter(mFragmentAdapter);
+		mHomeFragment = new HomeFragment();
+		mFragments.add(mHomeFragment);
+		mDiscoveryFragment = new DiscoveryFragment();
+		mFragments.add(mDiscoveryFragment);
+		mOwnerFragment = new OwnerFragment();
+		mFragments.add(mOwnerFragment);
+		setCurrentTab(0);
+	}
 
 	private void setCurrentTab(int currentIndex) {
+		// FragmentTransaction transaction =
+		// mFragmentManager.beginTransaction();
+		// hideFragments(transaction);
+		// switch (currentIndex) {
+		// case 0:
+		// if (mHomeFragment == null) {
+		// mHomeFragment = new HomeFragment();
+		// mFragments.add(mHomeFragment);
+		// } else {
+		// transaction.show(mHomeFragment);
+		// }
+		// break;
+		// case 1:
+		// if (mDiscoveryFragment == null) {
+		// mDiscoveryFragment = new DiscoveryFragment();
+		// mFragments.add(mDiscoveryFragment);
+		// } else {
+		// transaction.show(mDiscoveryFragment);
+		// }
+		// break;
+		// case 2:
+		// if (mOwnerFragment == null) {
+		// mOwnerFragment = new OwnerFragment();
+		// mFragments.add(mOwnerFragment);
+		// } else {
+		// transaction.show(mOwnerFragment);
+		// }
+		// break;
+		// default:
+		// break;
+		// }
+		// transaction.commit();
+		mFragmentAdapter.notifyDataSetChanged();
 		mViewPager.setCurrentItem(currentIndex, true);
+		mViewPager.setOffscreenPageLimit(2);
 		mRadioButtons[currentIndex].setChecked(true);
+	}
+
+	private void hideFragments(FragmentTransaction transaction) {
+		if (mHomeFragment != null) {
+			transaction.hide(mHomeFragment);
+		}
+
+		if (mDiscoveryFragment != null) {
+			transaction.hide(mDiscoveryFragment);
+		}
+
+		if (mOwnerFragment != null) {
+			transaction.hide(mOwnerFragment);
+		}
 	}
 
 	@Override
@@ -121,15 +165,15 @@ public class TabMainActivity extends FragmentActivity implements
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		Log.v("checkedId", checkedId + "");
-		
-		if(R.id.tab_home == checkedId){
+
+		if (R.id.tab_home == checkedId) {
 			mSelcetedTabIndex = 0;
-		}else if(R.id.tab_discovery == checkedId){
+		} else if (R.id.tab_discovery == checkedId) {
 			mSelcetedTabIndex = 1;
-		}else {
+		} else {
 			mSelcetedTabIndex = 2;
 		}
-		
+
 		if (mSelcetedTabIndex != mCurrentTabIndex) {
 			mCurrentTabIndex = mSelcetedTabIndex;
 			setCurrentTab(mCurrentTabIndex);
@@ -139,7 +183,7 @@ public class TabMainActivity extends FragmentActivity implements
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	// protected void initData()
