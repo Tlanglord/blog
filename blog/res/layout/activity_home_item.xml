@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="#ffffffff"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp" >
+
+    <ImageView
+        android:id="@+id/home_news_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_launcher"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_toLeftOf="@+id/home_news_image"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/home_news_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="开始开始开始开始开始开始开始"
+            android:textColor="@color/home_item_title_color"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" >
+
+            <TextView
+                android:id="@+id/home_news_sources"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/home_sources_bg"
+                android:text="比特网"
+                android:textColor="#4499ff"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/home_news_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/home_sources_bg"
+                android:text="0评论"
+                android:textColor="#4499ff"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/home_news_is_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/home_sources_bg"
+                android:text="图"
+                android:textColor="#4499ff"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/home_news_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/home_sources_bg"
+                android:text="2011-10-11"
+                android:textColor="#4499ff"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
