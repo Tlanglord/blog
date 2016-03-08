@@ -13,4 +13,10 @@ public enum BlogApi {
 	public  String getAction(){
 		return ApiHead.API_HEAD + mAction;
 	}
+	
+	@Override
+	public String toString() {
+		return ApiHead.API_HEAD + mAction;
+	}
+	
 }
