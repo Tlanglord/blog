@@ -1,18 +1,8 @@
 package com.qiang.blog.fragment;
 
-import org.json.JSONObject;
 
-import com.alibaba.fastjson.JSON;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.qiang.blog.R;
-import com.qiang.blog.entity.BlogData;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,32 +12,50 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.qiang.blog.R;
+import com.qiang.blog.adapter.BlogListAdapter;
+import com.qiang.blog.constant.BlogApi;
+import com.qiang.blog.entity.BlogData;
 
 public class HomeFragment extends Fragment implements OnClickListener {
-	private ListView mResultList;
+	private ListView mBlogListView;
 	private BlogData mBlogData;
 	private TextView mTest;
-	private com.alibaba.fastjson.JSONObject user;
+	private JSONArray mBlogJsonArray;
+	private BlogListAdapter mBlogListAdapter;
+	private Context mContext;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		mContext = getActivity().getApplicationContext();
+		testVolly();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.activity_home, container, false);
-		//mResultList = (ListView) rootView.findViewById(R.id.home_listview);
-		mTest = (TextView)rootView.findViewById(R.id.test);
-		mTest.setOnClickListener(this);
+		mBlogListView = (ListView) rootView.findViewById(R.id.home_listview);
 		return rootView;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-
 		super.onActivityCreated(savedInstanceState);
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
 	}
 
 	@Override
@@ -59,10 +67,8 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.test:
-			//testJsonVolly();
 			testVolly();
 			break;
-
 		default:
 			break;
 		}
@@ -71,13 +77,24 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	
 	private void testVolly() {
 
-		RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-		StringRequest stringRequest = new StringRequest("http://www.wpdqq.com//wp-json/wp/v2/categories/1",
+		RequestQueue queue = Volley.newRequestQueue(mContext);
+		StringRequest stringRequest = new StringRequest(BlogApi.getBlogContent.getAction(),
 				new Response.Listener<String>() {
 					@Override
 					public void onResponse(String response) {
 						Log.d("TAG", response);
-						user = JSON.parseObject(response);
+                          mBlogJsonArray = JSON.parseArray(response);
+                          
+                          if(mBlogJsonArray == null){
+                        	  Toast.makeText(mContext, "获取数据失败", Toast.LENGTH_SHORT).show();
+                        	  return;
+                          }
+                          
+                          if(mBlogListAdapter == null){
+                        	  mBlogListAdapter = new BlogListAdapter(mContext, mBlogJsonArray);
+                        	  mBlogListView.setAdapter(mBlogListAdapter);
+                          }
+                          mBlogListAdapter.notifyDataSetChanged();
 					}
 				}, new Response.ErrorListener() {
 					@Override
@@ -90,26 +107,25 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	}
 	
 	
-	private void testJsonVolly() {
-
-		RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-		JsonObjectRequest json = new JsonObjectRequest("http://www.wpdqq.com/wp-json/wp/v2/posts", null,
-				new Listener<JSONObject>() {
-
-					@Override
-					public void onResponse(JSONObject object) {
-						//mBlogData = JSON.parseObject(object.toString(), BlogData.class);
-					}
-				}, new Response.ErrorListener() {
-
-					@Override
-					public void onErrorResponse(VolleyError arg0) {
-						Log.d("TAG", arg0.getMessage());
-					}
-				});
-
-		queue.add(json);
-	}
-
+//	private void testJsonVolly() {
+//
+//		RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+//		JsonObjectRequest json = new JsonObjectRequest("http://www.wpdqq.com/wp-json/wp/v2/posts", null,
+//				new Listener<JSONObject>() {
+//
+//					@Override
+//					public void onResponse(JSONObject object) {
+//						//mBlogData = JSON.parseObject(object.toString(), BlogData.class);
+//					}
+//				}, new Response.ErrorListener() {
+//
+//					@Override
+//					public void onErrorResponse(VolleyError arg0) {
+//						Log.d("TAG", arg0.getMessage());
+//					}
+//				});
+//
+//		queue.add(json);
+//	}
 
 }
