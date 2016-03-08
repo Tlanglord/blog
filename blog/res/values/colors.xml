@@ -3,5 +3,8 @@
 
     <color name="tab_checked_color">#56abe4</color>
     <color name="tab_def_color">#a9b7b7</color>
+    <color name="home_item_title_color">#444444</color>
+    <color name="transparent">#00000000</color>
+    <color name="home_item_blue_color">#4499ff</color>
 
 </resources>
