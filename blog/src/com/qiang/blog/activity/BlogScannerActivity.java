@@ -28,7 +28,7 @@ public class BlogScannerActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getWindow().requestFeature(Window.FEATURE_PROGRESS);
+		//getWindow().requestFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.activity_scanner);
 		getData();
 		initView();
@@ -70,25 +70,21 @@ public class BlogScannerActivity extends Activity {
 
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				// TODO Auto-generated method stub
 				return super.shouldOverrideUrlLoading(view, url);
 			}
 
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
-				// TODO Auto-generated method stub
 				super.onPageStarted(view, url, favicon);
 			}
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
-				// TODO Auto-generated method stub
 				super.onPageFinished(view, url);
 			}
 
 			@Override
 			public void onLoadResource(WebView view, String url) {
-				// TODO Auto-generated method stub
 				super.onLoadResource(view, url);
 			}
 
@@ -98,8 +94,6 @@ public class BlogScannerActivity extends Activity {
 	}
 
 	private void initEvent() {
-		// mScannerNewsContent.setMovementMethod(ScrollingMovementMethod
-		// .getInstance());
 	}
 
 	ImageGetter imgGetter = new Html.ImageGetter() {
