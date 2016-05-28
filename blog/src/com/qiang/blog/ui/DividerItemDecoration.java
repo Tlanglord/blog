@@ -1,4 +1,4 @@
-package com.qiang.blog.fragment;
+package com.qiang.blog.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
