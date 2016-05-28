@@ -1,32 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:background="#e4e4e4"
+    android:orientation="vertical"
+    tools:context=".ChatActivity" >
+
+    <include layout="@layout/actionbar" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/tab_viewpager"
+        android:id="@+id/chat_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:background="#FFFFFF" >
     </android.support.v4.view.ViewPager>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#a9b7b7" />
+        android:background="#E9E9E9" />
 
     <RadioGroup
-        android:id="@+id/tab_radiogroup"
+        android:id="@+id/chat_radiogroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FCFCFC"
         android:baselineAligned="false"
         android:orientation="horizontal" >
 
         <RadioButton
-            android:id="@+id/tab_home"
+            android:id="@+id/chat_talk"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,13 +40,13 @@
             android:gravity="center"
             android:paddingBottom="2dp"
             android:paddingTop="2dp"
-            android:text="首页"
+            android:text="聊天"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@drawable/tab_common_selector"
             android:textSize="12sp" />
 
         <RadioButton
-            android:id="@+id/tab_discovery"
+            android:id="@+id/chat_contacts"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -53,13 +57,13 @@
             android:gravity="center"
             android:paddingBottom="2dp"
             android:paddingTop="2dp"
-            android:text="发现"
+            android:text="通讯录"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@drawable/tab_common_selector"
             android:textSize="12sp" />
 
         <RadioButton
-            android:id="@+id/tab_owner"
+            android:id="@+id/chat_lifesphere"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -70,7 +74,7 @@
             android:gravity="center"
             android:paddingBottom="2dp"
             android:paddingTop="2dp"
-            android:text="我"
+            android:text="生活圈"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@drawable/tab_common_selector"
             android:textSize="12sp" />

@@ -3,6 +3,15 @@ package com.qiang.blog.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,22 +19,33 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v4.view.ViewPager.PageTransformer;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Toast;
 
 import com.qiang.blog.R;
 import com.qiang.blog.adapter.FragmentAdapter;
 import com.qiang.blog.fragment.DiscoveryFragment;
 import com.qiang.blog.fragment.HomeFragment;
 import com.qiang.blog.fragment.OwnerFragment;
+import com.qiang.blog.utils.UIUtils;
 
+@SuppressLint("NewApi")
 public class TabMainActivity extends FragmentActivity implements
 		OnClickListener, OnPageChangeListener, OnCheckedChangeListener {
 
+	private long mExitTime;
 	private RadioButton mTabHome;
 	private RadioGroup mTabRadioGroup;
 	private RadioButton mTabDiscovery;
@@ -42,15 +62,55 @@ public class TabMainActivity extends FragmentActivity implements
 
 	private FragmentManager mFragmentManager;
 	private FragmentAdapter mFragmentAdapter;
+	
+	private int lastPos = 0;
 
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tab_main);
+		UIUtils.setStatusColor(this, "#4499ff");
 		initView();
 		initEvent();
 		initData();
 	}
+
+	// private void setStatusColor(Activity activity, String color) {
+	// setStatusColor(activity, Color.parseColor(color));
+	// }
+	//
+	// private void setStatusColor(Activity activity, int color) {
+	// Window window = activity.getWindow();
+	// if (VERSION.SDK_INT <= VERSION_CODES.KITKAT) {
+	// window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+	// ViewGroup decorView = (ViewGroup) window.getDecorView();
+	// View statusView = createStatusView(this, color);
+	// decorView.addView(statusView);
+	// } else {
+	// window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+	// window.getDecorView().setSystemUiVisibility(
+	// View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+	// | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+	// window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+	// window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+	// window.setStatusBarColor(color);
+	//
+	// }
+	// }
+	//
+	// private View createStatusView(Activity activity, int color) {
+	// int resourceId = activity.getResources().getIdentifier(
+	// "status_bar_height", "dimen", "android");
+	// int statusBarHeight = activity.getResources().getDimensionPixelSize(
+	// resourceId);
+	// View statusView = new View(activity);
+	// LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+	// ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
+	// statusView.setLayoutParams(params);
+	// statusView.setBackgroundColor(color);
+	// return statusView;
+	// }
 
 	private void initEvent() {
 		mTabHome.setOnClickListener(this);
@@ -126,9 +186,12 @@ public class TabMainActivity extends FragmentActivity implements
 		// break;
 		// }
 		// transaction.commit();
+		
+		
 		mFragmentAdapter.notifyDataSetChanged();
 		mViewPager.setCurrentItem(currentIndex, true);
 		mViewPager.setOffscreenPageLimit(2);
+		//mViewPager.setPageTransformer(false, PageTransformer)
 		mRadioButtons[currentIndex].setChecked(true);
 	}
 
@@ -182,7 +245,6 @@ public class TabMainActivity extends FragmentActivity implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -231,5 +293,17 @@ public class TabMainActivity extends FragmentActivity implements
 	// }
 	// }
 	// }
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((System.currentTimeMillis() - mExitTime) > 2000) {
+			Toast.makeText(this, "再次点击返回退出博客", Toast.LENGTH_SHORT).show();
+			mExitTime = System.currentTimeMillis();
+		} else {
+			finish();
+			System.exit(0);
+		}
+		return false;
+	}
 
 }

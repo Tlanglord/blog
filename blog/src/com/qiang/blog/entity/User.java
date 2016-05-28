@@ -2,79 +2,128 @@ package com.qiang.blog.entity;
 
 import java.io.Serializable;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-/**
- * 
- * @author qiangqiang.dong
- * 
- */
-public class User implements Serializable {
-	/**
+import com.sea_monster.common.ParcelUtils;
+
+public class User implements Parcelable, Serializable {
+
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	private String userId;
 
-	private String name;
+    private String passwd;
 
-	private String url;
+    /**
+     * 返回码
+     */
+    private int code;
+    /**
+     * 错误码 message
+     */
+    private String message;
+    /**
+     * 返回信息
+     */
+    private ApiResult result;
 
-	private String description;
+    public User() {
 
-	private String link;
+    }
 
-	private String slug;
+    public User(Parcel in) {
+        userId = ParcelUtils.readFromParcel(in);
 
-	@JSONField(name = "id")
-	public void setId(int id) {
-		this.id = id;
-	}
+        passwd = ParcelUtils.readFromParcel(in);
 
-	@JSONField(name = "id")
-	public int getId() {
-		return this.id;
-	}
+    }
 
-	// public void setName(String name) {
-	// this.name = name;
-	// }
-	//
-	// public String getName() {
-	// return this.name;
-	// }
-	//
-	// public void setUrl(String url) {
-	// this.url = url;
-	// }
-	//
-	// public String getUrl() {
-	// return this.url;
-	// }
-	//
-	// public void setDescription(String description) {
-	// this.description = description;
-	// }
-	//
-	// public String getDescription() {
-	// return this.description;
-	// }
-	//
-	// public void setLink(String link) {
-	// this.link = link;
-	// }
-	//
-	// public String getLink() {
-	// return this.link;
-	// }
-	//
-	// public void setSlug(String slug) {
-	// this.slug = slug;
-	// }
-	//
-	// public String getSlug() {
-	// return this.slug;
-	// }
+    public static final Creator<User> CREATOR = new Creator<User>() {
+
+        @Override
+        public User createFromParcel(Parcel source) {
+
+            return new User(source);
+
+        }
+
+        @Override
+        public User[] newArray(int size) {
+
+            return new User[size];
+
+        }
+
+    };
+
+    @Override
+    public int describeContents() {
+
+        return 0;
+
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        ParcelUtils.writeToParcel(dest, userId);
+
+        ParcelUtils.writeToParcel(dest, passwd);
+
+    }
+
+    public String getUserId() {
+
+        return userId;
+
+    }
+
+    public void setUserId(String userId) {
+
+        this.userId = userId;
+
+    }
+
+
+    public String getPasswd() {
+
+        return passwd;
+
+    }
+
+    public void setPasswd(String passwd) {
+
+        this.passwd = passwd;
+
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ApiResult getResult() {
+        return result;
+    }
+
+    public void setResult(ApiResult result) {
+        this.result = result;
+    }
+
 
 }

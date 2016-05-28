@@ -4,21 +4,23 @@
     android:layout_height="match_parent" >
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/id_recyclerview"
+        android:id="@+id/discovery_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/home_auto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/home_item_blue_color"
+        android:visibility="visible" />
+
     <ListView
         android:id="@+id/home_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:color/background_dark"
-        android:visibility="gone" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/home_auto"
+        android:clickable="true" />
 
 </RelativeLayout>

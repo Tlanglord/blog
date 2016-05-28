@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="23" />
+        android:minSdkVersion="21"
+        android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -58,11 +58,23 @@
             android:launchMode="standard" >
         </activity>
         <activity
+            android:name="com.qiang.blog.activity.MovieDetailActivity"
+            android:launchMode="standard" >
+        </activity>
+        <activity
+            android:name="com.qiang.blog.activity.MovieCastActivity"
+            android:launchMode="standard" >
+        </activity>
+        <activity
             android:name="com.qiang.blog.activity.LoginActivity"
             android:launchMode="standard" >
         </activity>
         <activity
             android:name="com.qiang.blog.activity.ChatActivity"
+            android:launchMode="standard" >
+        </activity>
+        <activity
+            android:name="com.qiang.blog.activity.MovieActivity"
             android:launchMode="standard" >
         </activity>
         <activity

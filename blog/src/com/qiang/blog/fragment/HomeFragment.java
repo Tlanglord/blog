@@ -23,14 +23,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.qiang.blog.R;
-import com.qiang.blog.activity.BlogScannerActivity;
+import com.qiang.blog.activity.WebviewActivity;
 import com.qiang.blog.adapter.BlogListAdapter;
 import com.qiang.blog.constant.BlogApi;
-import com.qiang.blog.entity.BlogData;
 
 public class HomeFragment extends Fragment implements OnClickListener {
 	private ListView mBlogListView;
-	private BlogData mBlogData;
 	private TextView mTest;
 	private JSONArray mBlogJsonArray;
 	private BlogListAdapter mBlogListAdapter;
@@ -69,11 +67,11 @@ public class HomeFragment extends Fragment implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent(mContext, BlogScannerActivity.class);
+				Intent intent = new Intent(mContext, WebviewActivity.class);
 				intent.putExtra("title", mBlogJsonArray.getJSONObject(position)
 						.getJSONObject("title").getString("rendered"));
 				intent.putExtra(
-						"content",
+						"url",
 						mBlogJsonArray.getJSONObject(position)
 								.getString("link"));
 				//intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -81,6 +79,8 @@ public class HomeFragment extends Fragment implements OnClickListener {
 			}
 		});
 	}
+	
+	
 
 	@Override
 	public void onResume() {
@@ -95,13 +95,12 @@ public class HomeFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.test:
+		case R.id.home_auto:
 			testVolly();
 			break;
 		default:
 			break;
 		}
-
 	}
 
 	private void testVolly() {
@@ -116,7 +115,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 						mBlogJsonArray = JSON.parseArray(response);
 
 						if (mBlogJsonArray == null) {
-							Toast.makeText(mContext, "»ñÈ¡Êý¾ÝÊ§°Ü",
+							Toast.makeText(mContext, "ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ê§ï¿½ï¿½",
 									Toast.LENGTH_SHORT).show();
 							return;
 						}

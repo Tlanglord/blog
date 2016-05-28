@@ -1,18 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/id_recyclerview"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:fillViewport="true"
+        android:scrollbars="vertical" >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="discovery" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-</RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/lifesphere_back"
+                android:visibility="gone" />
+
+            <com.qiang.blog.ui.SuperRecyclerView
+                android:id="@+id/discovery_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#e3e3e3"
+                android:scrollbars="none" >
+            </com.qiang.blog.ui.SuperRecyclerView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
