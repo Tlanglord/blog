@@ -1,0 +1,152 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/md_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e4e4e4"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_header" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <RelativeLayout
+                    android:id="@+id/md_play"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" >
+
+                    <ImageView
+                        android:id="@+id/md_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/movie_logo"
+                        android:scaleType="center" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:cropToPadding="true"
+                        android:layerType="hardware"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/movie_play" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/md_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/md_play"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/md_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
+                        android:text="奇幻森林" />
+
+                    <TextView
+                        android:id="@+id/md_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
+                        android:text="评分：3.6分" />
+
+                    <TextView
+                        android:id="@+id/md_director"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
+                        android:text="导演：奇幻森林" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/md_summmay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/md_info"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/white"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:padding="12dp"
+                    android:text="毛克利（尼尔·塞西 Neel Sethi 饰）是一个由狼群养大的人类男孩，影片围绕他的森林冒险徐徐展开。谢利·可汗，一只受过人类伤害的老虎（伊德里斯·艾尔巴 Idris Elba 配音），发誓要将毛克利铲除。为了逃脱追捕，毛克利跟随严厉的导师黑豹巴希拉（本·金斯利 Ben Kingsley 配音）和自由自在的好友棕熊巴鲁（比尔·默瑞 Bill Murray 配音），踏上了一场精彩纷呈的自我探索旅程。在这趟旅途中，毛克利遇到了一些对他居心叵测的丛林生物，包括巨蟒卡奥（斯嘉丽·约翰逊 Scarlett Johansson 配音），她用迷人的声音和眼神迷惑毛克利；还有花言巧语的猩猩路易王（克里斯托弗·沃肯 Christopher Walken 配音），他试图通过威逼利诱让毛克利交出迷幻而致命的“红花”——火焰的秘密。当森林不再是安全的家园，毛克利该何去何从？而毕生难忘的伟大冒险，才刚刚拉开序幕……" />
+
+                <HorizontalScrollView
+                    android:id="@+id/md_casts_scroll_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/md_summmay"
+                    android:layout_marginTop="12dp"
+                    android:background="#ffffffff"
+                    android:padding="12dp"
+                    android:scrollbars="none"
+                    android:visibility="visible" >
+
+                    <LinearLayout
+                        android:id="@+id/md_casts_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:divider="@drawable/linear_divider"
+                        android:dividerPadding="10dp"
+                        android:orientation="horizontal"
+                        android:showDividers="middle" >
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/movie_logo" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/md_douban_station"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="前往豆瓣小站"
+                android:textColor="@color/text_black" />
+
+            <TextView
+                android:id="@+id/md_movieinfo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="查看影讯"
+                android:textColor="@color/text_black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="没有更多信息啦"
+                android:textColor="@color/text_black" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,6 +1,5 @@
 package com.qiang.blog.app;
 
-import io.rong.imlib.ipc.RongExceptionHandler;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Application;
@@ -40,43 +39,43 @@ public class BlogApplication extends Application {
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
 				.memoryCache(new WeakMemoryCache()).build();
 		ImageLoader.getInstance().init(config);
-		if (getApplicationInfo().packageName
-				.equals(getCurProcessName(getApplicationContext()))
-				|| "io.rong.push"
-						.equals(getCurProcessName(getApplicationContext()))) {
-
-			// RongIM.init(this);
-			ChatRongIM.init(this);
-
-			/**
-			 * 融云SDK事件监听处理
-			 * 
-			 * 注册相关代码，只需要在主进程里做。
-			 */
-			if (getApplicationInfo().packageName
-					.equals(getCurProcessName(getApplicationContext()))) {
-
-				// RongCloudEvent.init(this);
-				// DemoContext.init(this);
-				AppContext.init(this);
-				Thread.setDefaultUncaughtExceptionHandler(new RongExceptionHandler(
-						this));
-
-				try {
-					// RongIM.registerMessageType(AgreedFriendRequestMessage.class);
-
-					// RongIM.registerMessageTemplate(new
-					// ContactNotificationMessageProvider());
-					// RongIM.registerMessageTemplate(new
-					// RealTimeLocationMessageProvider());
-					// @ 消息模板展示
-					// RongContext.getInstance().registerConversationTemplate(
-					// new NewDiscussionConversationProvider());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
+	// if (getApplicationInfo().packageName
+	// .equals(getCurProcessName(getApplicationContext()))
+	// || "io.rong.push"
+	// .equals(getCurProcessName(getApplicationContext()))) {
+	//
+	// // RongIM.init(this);
+	// ChatRongIM.init(this);
+	//
+	// /**
+	// * 融云SDK事件监听处理
+	// *
+	// * 注册相关代码，只需要在主进程里做。
+	// */
+	// if (getApplicationInfo().packageName
+	// .equals(getCurProcessName(getApplicationContext()))) {
+	//
+	// // RongCloudEvent.init(this);
+	// // DemoContext.init(this);
+	// AppContext.init(this);
+	// Thread.setDefaultUncaughtExceptionHandler(new RongExceptionHandler(
+	// this));
+	//
+	// try {
+	// // RongIM.registerMessageType(AgreedFriendRequestMessage.class);
+	//
+	// // RongIM.registerMessageTemplate(new
+	// // ContactNotificationMessageProvider());
+	// // RongIM.registerMessageTemplate(new
+	// // RealTimeLocationMessageProvider());
+	// // @ 消息模板展示
+	// // RongContext.getInstance().registerConversationTemplate(
+	// // new NewDiscussionConversationProvider());
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// }
 	}
 
 	/**

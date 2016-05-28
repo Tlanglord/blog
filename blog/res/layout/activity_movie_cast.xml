@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/md_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e4e4e4"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_header" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="12dp" >
+
+                <ImageView
+                    android:id="@+id/mc_image"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/movie_logo"
+                    android:gravity="center"
+                    android:textColor="@color/text_black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/mc_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/text_black" />
+
+                    <TextView
+                        android:id="@+id/mc_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/text_black" />
+
+                    <TextView
+                        android:id="@+id/mc_born_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/text_black" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="没有更多信息啦"
+                    android:textColor="@color/text_black" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/mc_casts_scroll_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="#ffffffff"
+                android:padding="12dp"
+                android:scrollbars="none"
+                android:visibility="visible" >
+
+                <LinearLayout
+                    android:id="@+id/mc_works_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:divider="@drawable/linear_divider"
+                    android:dividerPadding="10dp"
+                    android:orientation="horizontal"
+                    android:showDividers="middle" >
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="没有更多信息啦"
+                android:textColor="@color/text_black" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

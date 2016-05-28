@@ -79,8 +79,7 @@
         </activity>
         <activity
             android:name="com.qiang.blog.activity.LifeSphereActivity"
-            android:launchMode="standard"
-            android:theme="@style/Theme.AppCompat.DialogWhenLarge" >
+            android:launchMode="standard" >
         </activity>
 
         <!--  -->
