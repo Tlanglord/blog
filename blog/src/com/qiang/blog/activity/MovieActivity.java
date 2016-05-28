@@ -70,7 +70,7 @@ public class MovieActivity extends BaseActivity implements OnItemClickListener {
 	};
 
 	private View getListHeader() {
-		return LayoutInflater.from(this).inflate(R.layout.movie_viewpager_layout, null);
+		return LayoutInflater.from(this).inflate(R.layout.movie_viewpager_header, null);
 	}
 
 	@Override

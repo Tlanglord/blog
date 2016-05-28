@@ -53,9 +53,9 @@ public class GuideActivity extends Activity {
 		}
 
 		if(mIsFirst == 0){
-			intro1 = mInflater.inflate(R.layout.intro1, null);
-			intro2 = mInflater.inflate(R.layout.intro2, null);
-			intro3 = mInflater.inflate(R.layout.intro3, null);
+			intro1 = mInflater.inflate(R.layout.viewpager_intro_one, null);
+			intro2 = mInflater.inflate(R.layout.viewpager_intro_two, null);
+			intro3 = mInflater.inflate(R.layout.viewpager_intro_three, null);
 			mViewList.add(intro1);
 			mViewList.add(intro2);
 			mViewList.add(intro3);
@@ -63,7 +63,7 @@ public class GuideActivity extends Activity {
 			//sharedPreferences.edit().commit();
 		}
 		
-		intro4 = mInflater.inflate(R.layout.intro4, null);
+		intro4 = mInflater.inflate(R.layout.viewpager_intro_four, null);
 		mViewList.add(intro4);
 
 		mViewPager = (ViewPager) findViewById(R.id.app_guide_viewpager);
@@ -98,10 +98,10 @@ public class GuideActivity extends Activity {
 			mViewList = new ArrayList<View>();
 		}
 
-		mViewList.add(mInflater.inflate(R.layout.intro1, null));
-		mViewList.add(mInflater.inflate(R.layout.intro2, null));
-		mViewList.add(mInflater.inflate(R.layout.intro3, null));
-		mViewList.add(mInflater.inflate(R.layout.intro4, null));
+		mViewList.add(mInflater.inflate(R.layout.viewpager_intro_one, null));
+		mViewList.add(mInflater.inflate(R.layout.viewpager_intro_two, null));
+		mViewList.add(mInflater.inflate(R.layout.viewpager_intro_three, null));
+		mViewList.add(mInflater.inflate(R.layout.viewpager_intro_four, null));
 	}
 	
 	private void back(){
