@@ -1,125 +1,247 @@
 package com.qiang.blog.utils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.AbstractHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
-import android.content.SharedPreferences;
-import android.text.TextUtils;
-
-import com.qiang.blog.app.AppContext;
+import android.content.Context;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.NetworkInfo.State;
+import android.telephony.TelephonyManager;
 
 public class NetUtils {
+    public static boolean isNetworkAvailable(Context context) {
 
-	private static HttpClient httpClient = new DefaultHttpClient();
-	private static final String BASE_URL = "http://webim.demo.rong.io/";
+	ConnectivityManager cm = (ConnectivityManager) context
+		.getSystemService(Context.CONNECTIVITY_SERVICE);
+	NetworkInfo netInfo = cm.getActiveNetworkInfo();
 
-	/**
-	 * 发送GET请求方法
-	 * 
-	 * @param requestUrl
-	 *            请求的URL
-	 * @return 响应的数据
-	 */
-	public static String sendGetRequest(String requestUrl) {
-
-		HttpGet httpGet = new HttpGet(BASE_URL + requestUrl);
-		if (AppContext.getInstance().getSharedPreferences() != null) {
-			httpGet.addHeader("cookie", AppContext.getInstance()
-					.getSharedPreferences().getString("DEMO_COOKIE", null));
-		}
-		try {
-			HttpResponse response = httpClient.execute(httpGet);
-			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				HttpEntity entity = response.getEntity();
-				getCookie(httpClient);
-				return EntityUtils.toString(entity); // 当返回的类型为Json数据时，调用此返回方法
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	    return true;
 	}
+	return false;
+    }
 
-	/**
-	 * 发送post请求
-	 * 
-	 * @param requestUrl
-	 *            请求的URL
-	 * @param params
-	 *            请求的参数
-	 * @return 响应的数据
-	 */
-	public static String sendPostRequest(String requestUrl,
-			Map<String, String> params) {
+    /**
+     * GPS是否打开
+     * 
+     * @param context
+     *            上下文
+     * @return Gps是否可用
+     */
+    public static boolean isGpsEnabled(Context context) {
+	LocationManager lm = (LocationManager) context
+		.getSystemService(Context.LOCATION_SERVICE);
+	return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
 
-		HttpPost httpPost = new HttpPost(BASE_URL + requestUrl);
+    /**
+     * 检测当前打开的网络类型是否WIFI
+     * 
+     * @param context
+     *            上下文
+     * @return 是否是Wifi上网
+     */
+    public static boolean isWifi(Context context) {
+	ConnectivityManager connectivityManager = (ConnectivityManager) context
+		.getSystemService(Context.CONNECTIVITY_SERVICE);
+	NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+	return activeNetInfo != null
+		&& activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI;
+    }
 
-		if (AppContext.getInstance().getSharedPreferences() != null) {
+    /**
+     * 检测当前打开的网络类型是否3G
+     * 
+     * @param context
+     *            上下文
+     * @return 是否是3G上网
+     */
+    public static boolean is3G(Context context) {
+	ConnectivityManager connectivityManager = (ConnectivityManager) context
+		.getSystemService(Context.CONNECTIVITY_SERVICE);
+	NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+	return activeNetInfo != null
+		&& activeNetInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+    }
 
-			httpPost.addHeader("cookie", AppContext.getInstance()
-					.getSharedPreferences().getString("DEMO_COOKIE", null));
-		}
-		try {
-			if (params != null && params.size() > 0) {
-				List<NameValuePair> paramLists = new ArrayList<NameValuePair>();
-				for (Entry<String, String> map : params.entrySet()) {
-					paramLists.add(new BasicNameValuePair(map.getKey(), map
-							.getValue()));
-				}
-				httpPost.setEntity(new UrlEncodedFormEntity(paramLists, "UTF-8"));
-			}
-			HttpResponse response = httpClient.execute(httpPost);
-			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				HttpEntity entity = response.getEntity();
-
-				getCookie(httpClient);
-				return EntityUtils.toString(entity);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+    /**
+     * 检测当前开打的网络类型是否4G
+     * 
+     * @param context
+     *            上下文
+     * @return 是否是4G上网
+     */
+    public static boolean is4G(Context context) {
+	ConnectivityManager connectivityManager = (ConnectivityManager) context
+		.getSystemService(Context.CONNECTIVITY_SERVICE);
+	NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+	if (activeNetInfo != null && activeNetInfo.isConnectedOrConnecting()) {
+	    if (activeNetInfo.getType() == TelephonyManager.NETWORK_TYPE_LTE) {
+		return true;
+	    }
 	}
+	return false;
+    }
 
-	/**
-	 * 获得cookie
-	 * 
-	 * @param httpClient
-	 */
-	public static void getCookie(HttpClient httpClient) {
-		List<Cookie> cookies = ((AbstractHttpClient) httpClient)
-				.getCookieStore().getCookies();
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < cookies.size(); i++) {
-			Cookie cookie = cookies.get(i);
-			String cookieName = cookie.getName();
-			String cookieValue = cookie.getValue();
-			if (!TextUtils.isEmpty(cookieName)
-					&& !TextUtils.isEmpty(cookieValue)) {
-				sb.append(cookieName + "=");
-				sb.append(cookieValue + ";");
-			}
-		}
-		SharedPreferences.Editor edit = AppContext.getInstance()
-				.getSharedPreferences().edit();
-		edit.putString("DEMO_COOKIE", sb.toString());
-		edit.apply();
+    /**
+     * 只是判断WIFI
+     * 
+     * @param context
+     *            上下文
+     * @return 是否打开Wifi
+     */
+    public static boolean isWiFi(Context context) {
+	ConnectivityManager manager = (ConnectivityManager) context
+		.getSystemService(Context.CONNECTIVITY_SERVICE);
+	State wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+		.getState();
+	return wifi == State.CONNECTED || wifi == State.CONNECTING;
+
+    }
+
+    /**
+     * IP地址校验
+     * 
+     * @param ip
+     *            待校验是否是IP地址的字符串
+     * @return 是否是IP地址
+     */
+    public static boolean isIP(String ip) {
+	Pattern pattern = Pattern
+		.compile("\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
+	Matcher matcher = pattern.matcher(ip);
+	return matcher.matches();
+    }
+
+    /**
+     * IP转化成int数字
+     * 
+     * @param addr
+     *            IP地址
+     * @return Integer
+     */
+    public static int ipToInt(String addr) {
+	String[] addrArray = addr.split("\\.");
+	int num = 0;
+	for (int i = 0; i < addrArray.length; i++) {
+	    int power = 3 - i;
+	    num += ((Integer.parseInt(addrArray[i]) % 256 * Math
+		    .pow(256, power)));
 	}
+	return num;
+    }
+
+    /**
+     * 枚举网络状态 NET_NO：没有网络 NET_2G:2g网络 NET_3G：3g网络 NET_4G：4g网络 NET_WIFI：wifi
+     * NET_UNKNOWN：未知网络
+     */
+    public enum NetState {
+	NET_NO, NET_2G, NET_3G, NET_4G, NET_WIFI, NET_UNKNOWN
+    }
+
+    /**
+     * 判断当前是否网络连接
+     * 
+     * @param context
+     *            上下文
+     * @return 状态码
+     */
+    public NetState isConnected(Context context) {
+	NetState stateCode = NetState.NET_NO;
+	ConnectivityManager cm = (ConnectivityManager) context
+		.getSystemService(Context.CONNECTIVITY_SERVICE);
+	NetworkInfo ni = cm.getActiveNetworkInfo();
+	if (ni != null && ni.isConnectedOrConnecting()) {
+	    switch (ni.getType()) {
+	    case ConnectivityManager.TYPE_WIFI:
+		stateCode = NetState.NET_WIFI;
+		break;
+	    case ConnectivityManager.TYPE_MOBILE:
+		switch (ni.getSubtype()) {
+		case TelephonyManager.NETWORK_TYPE_GPRS: // 联通2g
+		case TelephonyManager.NETWORK_TYPE_CDMA: // 电信2g
+		case TelephonyManager.NETWORK_TYPE_EDGE: // 移动2g
+		case TelephonyManager.NETWORK_TYPE_1xRTT:
+		case TelephonyManager.NETWORK_TYPE_IDEN:
+		    stateCode = NetState.NET_2G;
+		    break;
+		case TelephonyManager.NETWORK_TYPE_EVDO_A: // 电信3g
+		case TelephonyManager.NETWORK_TYPE_UMTS:
+		case TelephonyManager.NETWORK_TYPE_EVDO_0:
+		case TelephonyManager.NETWORK_TYPE_HSDPA:
+		case TelephonyManager.NETWORK_TYPE_HSUPA:
+		case TelephonyManager.NETWORK_TYPE_HSPA:
+		case TelephonyManager.NETWORK_TYPE_EVDO_B:
+		case TelephonyManager.NETWORK_TYPE_EHRPD:
+		case TelephonyManager.NETWORK_TYPE_HSPAP:
+		    stateCode = NetState.NET_3G;
+		    break;
+		case TelephonyManager.NETWORK_TYPE_LTE:
+		    stateCode = NetState.NET_4G;
+		    break;
+		default:
+		    stateCode = NetState.NET_UNKNOWN;
+		}
+		break;
+	    default:
+		stateCode = NetState.NET_UNKNOWN;
+	    }
+
+	}
+	return stateCode;
+    }
+
+    /**
+     * 获取URL中参数 并返回Map
+     * 
+     * @param url
+     * @return
+     */
+    public static Map<String, String> getUrlParams(String url) {
+	Map<String, String> params = null;
+	try {
+	    String[] urlParts = url.split("\\?");
+	    if (urlParts.length > 1) {
+		params = new HashMap<>();
+		String query = urlParts[1];
+		for (String param : query.split("&")) {
+		    String[] pair = param.split("=");
+		    String key = URLDecoder.decode(pair[0], "UTF-8");
+		    String value = "";
+		    if (pair.length > 1) {
+			value = URLDecoder.decode(pair[1], "UTF-8");
+		    }
+		    params.put(key, value);
+		}
+	    }
+	} catch (UnsupportedEncodingException ex) {
+	    ex.printStackTrace();
+	}
+	return params;
+    }
+
+    /**
+     * 是否是网络链接
+     * 
+     * @param url
+     * @return
+     */
+    public static boolean isUrl(String url) {
+	try {
+	    URL url1 = new URL(url);
+	    return true;
+	} catch (MalformedURLException e) {
+	    e.printStackTrace();
+	    return false;
+	}
+    }
 
 }

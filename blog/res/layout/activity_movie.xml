@@ -2,10 +2,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e4e4e4"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <include layout="@layout/common_header" />
+
+    <LinearLayout
+        android:id="@+id/movie_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@drawable/search_bg_shape"
+            android:gravity="center|left"
+            android:hint="搜索"
+            android:textColorHint="@color/common_gray1" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/common_gray" />
 
     <ListView
         android:id="@+id/movie_listview"

@@ -3,15 +3,8 @@ package com.qiang.blog.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,18 +12,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v4.view.ViewPager.PageTransformer;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
@@ -41,7 +28,6 @@ import com.qiang.blog.fragment.HomeFragment;
 import com.qiang.blog.fragment.OwnerFragment;
 import com.qiang.blog.utils.UIUtils;
 
-@SuppressLint("NewApi")
 public class TabMainActivity extends FragmentActivity implements
 		OnClickListener, OnPageChangeListener, OnCheckedChangeListener {
 

@@ -140,6 +140,10 @@ public class MovieDetailActivity extends BaseActivity implements
 	testVolly(mMdMovieId);
     }
 
+    public <T> boolean isValidList(List<T> list) {
+	return list != null && list.size() > 0;
+    }
+
     private void testVolly(String movieId) {
 
 	RequestQueue queue = Volley.newRequestQueue(this);
@@ -155,10 +159,15 @@ public class MovieDetailActivity extends BaseActivity implements
 			mMdName.setText("片名：" + mMdDetailInfo.getTitle());
 			mMdRating.setText("评分："
 				+ mMdDetailInfo.getRating().getAverage() + "");
-			mMdDirector
-				.setText("导演："
-					+ mMdDetailInfo.getDirectors().get(0)
-						.getName());
+
+			if (isValidList(mMdDetailInfo.getDirectors())) {
+			    mMdDirector.setText("导演："
+				    + mMdDetailInfo.getDirectors().get(0)
+					    .getName());
+			} else {
+			    mMdDirector.setText("导演：" + "未知");
+			}
+
 			mMdSummmay.setText(mMdDetailInfo.getSummary());
 			mImageLoader.displayImage(mMdDetailInfo.getImages()
 				.getLarge(), mMdImage, mOptions);

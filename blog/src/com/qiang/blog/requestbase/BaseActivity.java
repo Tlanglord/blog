@@ -4,15 +4,26 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 
 import com.qiang.blog.R;
 
-public abstract class BaseActivity extends Activity implements IMidResponse {
+public abstract class BaseActivity extends Activity implements IMidResponse, OnGestureListener {
 
     private Dialog mDialog;
+    private GestureDetector mGestureDetector; 
+    
+    
+    
+    private void initGesture(){
+	mGestureDetector = new GestureDetector(this);   
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,5 +92,47 @@ public abstract class BaseActivity extends Activity implements IMidResponse {
 	    back();
 	}
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	if (KeyEvent.KEYCODE_BACK == keyCode) {
+	    back();
+	}
+	return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+	return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+	
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+	return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+	    float distanceY) {
+	return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+	
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+	    float velocityY) {
+	return false;
+    }
+    
+    
 
 }

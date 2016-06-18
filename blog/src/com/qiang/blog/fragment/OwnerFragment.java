@@ -1,21 +1,9 @@
 package com.qiang.blog.fragment;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,9 +13,6 @@ import android.widget.TextView;
 import com.qiang.blog.R;
 import com.qiang.blog.activity.MemoActivity;
 import com.qiang.blog.activity.MovieActivity;
-import com.qiang.blog.app.AppContext;
-import com.qiang.blog.app.BlogApplication;
-import com.qiang.blog.utils.NetUtils;
 
 public class OwnerFragment extends Fragment implements OnClickListener {
 

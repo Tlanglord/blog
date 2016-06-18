@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -52,7 +51,7 @@ public class DiscoveryFragment extends BaseV4Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 	mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,
 		StaggeredGridLayoutManager.VERTICAL));
 	mListAdapter = new DiscoveryListAdapter(mContext);
@@ -62,7 +61,7 @@ public class DiscoveryFragment extends BaseV4Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
 	super.onActivityCreated(savedInstanceState);
     }
 

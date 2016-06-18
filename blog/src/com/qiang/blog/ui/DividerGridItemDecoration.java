@@ -170,7 +170,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
     private boolean isLastSecCount(int position, int count) {
 	return position == (count - 2);
     }
-    
+
     @Override
     public void getItemOffsets(Rect outRect, int itemPosition,
 	    RecyclerView parent) {
@@ -188,7 +188,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
 	    // outRect.set(0, 0, mDivider.getIntrinsicWidth(),
 	    // mDivider.getIntrinsicHeight());
 	    // outRect.set(0, 0, mDividerHeight, mDividerHeight);
-	   // outRect.set(0, 0, mDividerHeight, mDividerHeight);
+	    // outRect.set(0, 0, mDividerHeight, mDividerHeight);
 	}
 	// outRect.set(0, 0, mDividerHeight, mDividerHeight);
 	// outRect.set(0, 0, 0, mDividerHeight);
@@ -201,9 +201,9 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
 	    outRect.set(mDividerHeight, mDividerHeight, mDividerHeight,
 		    mDividerHeight);
 	} else if (isSecCount(itemPosition)) {
-	    outRect.set(0, mDividerHeight, mDividerHeight, mDividerHeight);
+	    outRect.set(0, mDividerHeight, 0, mDividerHeight);
 	} else if (isLastColum1(parent, itemPosition, spanCount, childCount)) {
-	    outRect.set(0, 0, mDividerHeight, mDividerHeight);
+	    outRect.set(0, 0, 0, mDividerHeight);
 	} else {
 	    outRect.set(mDividerHeight, 0, mDividerHeight, mDividerHeight);
 	}

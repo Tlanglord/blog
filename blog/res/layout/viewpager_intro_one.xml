@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="10"
-    android:background="#222222"
+    android:background="#c2c2c2"
     android:orientation="vertical" >
 
     <TextView
@@ -35,7 +35,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/shenghuo1" />
+            android:src="@drawable/shenghuoyuanfang" />
     </LinearLayout>
 
     <TextView
