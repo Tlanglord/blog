@@ -14,7 +14,7 @@ public class AlarmReceiver extends BroadcastReceiver
     {  
         Log.d("MyTag", "onclock......................");  
         String msg = intent.getStringExtra("msg");  
-        Toast.makeText(context,"BBBDDD",Toast.LENGTH_SHORT).show();  
+        Toast.makeText(context,"BBB",Toast.LENGTH_SHORT).show();  
     }  
   
 }  
