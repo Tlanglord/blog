@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+
+        <ImageView
+            android:id="@+id/header_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/activity_head_back"
+            android:padding="5dp" />
+
+        <EditText
+            android:id="@+id/movie_search_edit"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:background="@drawable/search_bg_shape"
+            android:ellipsize="end"
+            android:gravity="center|left"
+            android:hint="导演名或电影类型"
+            android:singleLine="true"
+            android:textColorHint="@color/common_gray1" />
+
+        <TextView
+            android:id="@+id/movie_search_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="2dp"
+            android:text="搜索" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/common_gray" />
+
+    <ListView
+        android:id="@+id/movie_search_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/common_gray3"
+        android:dividerHeight="12dp"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="true" >
+    </ListView>
+
+</LinearLayout>
